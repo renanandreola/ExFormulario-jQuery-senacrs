@@ -1,3 +1,5 @@
+$(document).ready(function() {
+
 function send (event) {
 
   event.preventDefault();
@@ -48,35 +50,71 @@ function clear (){
   document.getElementById("address").value = "";
 }
 
-function updateCities(event) {
-  event.preventDefault();
-  var state = document.getElementById("state").value;
+  //$('#cep').keyup(function() {
+  //var cep = $('#cep').value;
+  //$.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+    //console.info(dados);
+    //console.info(dados.logradouro);
+  //});
 
-  var citiesRS = ['Erechim', 'Passo Fundo', 'Gaurama', 'Barão de Cotegipe', 'Sapucaia do Sul'];
-    citiesRS = citiesRS.sort();
-  var citiesSC = ['Chapecó', 'Blumenau', 'Florianópolis'];
-    citiesSC = citiesSC.sort();
-  var citiesSP = ['São Paulo', 'Barretos', 'Sorocaba', 'Cajamar'];
-    citiesSP = citiesSP.sort();
+   function limpa_formulário_cep() {
+       // Limpa valores do formulário de cep.
+       $("#address").val("");
+       $("#neighborhood").val("");
+       $("#city").val("");
+       $("#uf").val("");
+       $("#complement").val("");
+   }
 
-  var cities = document.getElementById("cities");
+   //Quando o campo cep perde o foco.
+   $("#cep").keyup(function() {
 
-  if(state === "RS"){
-    var result = "";
-      for( var i = 0; i < citiesRS.length; i++) {
-          result+= "<option>" + citiesRS[i] + "</option>";
-      }   cities.innerHTML = result;
-  }
-  if(state === "SC"){
-    var result = "";
-      for( var i = 0; i < citiesSC.length; i++) {
-          result+= "<option>" + citiesSC[i] + "</option>";
-      }   cities.innerHTML = result;
-  }
-  if(state === "SP"){
-    var result = "";
-      for( var i = 0; i < citiesSP.length; i++) {
-          result+= "<option>" + citiesSP[i] + "</option>";
-      }   cities.innerHTML = result;
-  }
-}
+       //Nova variável "cep" somente com dígitos.
+       var cep = $(this).val().replace(/\D/g, '');
+
+       //Verifica se campo cep possui valor informado.
+       if (cep != "") {
+
+           //Expressão regular para validar o CEP.
+           var validacep = /^[0-9]{8}$/;
+
+           //Valida o formato do CEP.
+           if(validacep.test(cep)) {
+
+               //Preenche os campos com "..." enquanto consulta webservice.
+               $("#address").val("...");
+               $("#neighborhood").val("...");
+               $("#city").val("...");
+               $("#uf").val("...");
+               $("#complement").val("...");
+
+               //Consulta o webservice viacep.com.br/
+               $.getJSON("https://viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+
+                   if (!("erro" in dados)) {
+                       //Atualiza os campos com os valores da consulta.
+                       $("#address").val(dados.logradouro);
+                       $("#neighborhood").val(dados.bairro);
+                       $("#city").val(dados.localidade);
+                       $("#uf").val(dados.uf);
+                       $("#complement").val(dados.complemento);
+                   } //end if.
+                   else {
+                       //CEP pesquisado não foi encontrado.
+                       limpa_formulário_cep();
+                       alert("CEP não encontrado.");
+                   }
+               });
+           } //end if.
+           else {
+               //cep é inválido.
+               limpa_formulário_cep();
+               alert("Formato de CEP inválido.");
+           }
+       } //end if.
+       else {
+           //cep sem valor, limpa formulário.
+           limpa_formulário_cep();
+       }
+   });
+});

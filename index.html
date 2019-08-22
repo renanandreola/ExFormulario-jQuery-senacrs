@@ -28,28 +28,63 @@
         <label>Telefone</label>
         <input type="num" name="" value="" id="phone" class="form-control">
       </div>
+
+      <div class="col-2">
+        <label>CEP</label>
+        <input type="num" name="" value="" id="cep" class="form-control">
+      </div>
+
+
       <div class="col-2">
         <label>Estado</label>
         <select class="form-control" type="text" name="" value="" id="state" class="form-control" onchange="updateCities(event)">
-          <option>Selecine o estado</option>
-          <option>RS</option>
-          <option>SC</option>
-          <option>SP</option>
-        </select>
+          <option value="AC">Acre</option>
+             <option value="AL">Alagoas</option>
+             <option value="AP">Amapá</option>
+             <option value="AM">Amazonas</option>
+             <option value="BA">Bahia</option>
+             <option value="CE">Ceará</option>
+             <option value="DF">Distrito Federal</option>
+             <option value="ES">Espírito Santo</option>
+             <option value="GO">Goiás</option>
+             <option value="MA">Maranhão</option>
+             <option value="MT">Mato Grosso</option>
+             <option value="MS">Mato Grosso do Sul</option>
+             <option value="MG">Minas Gerais</option>
+             <option value="PA">Pará</option>
+             <option value="PB">Paraíba</option>
+             <option value="PR">Paraná</option>
+             <option value="PE">Pernambuco</option>
+             <option value="PI">Piauí</option>
+             <option value="RJ">Rio de Janeiro</option>
+             <option value="RN">Rio Grande do Norte</option>
+             <option value="RS">Rio Grande do Sul</option>
+             <option value="RO">Rondônia</option>
+             <option value="RR">Roraima</option>
+             <option value="SC">Santa Catarina</option>
+             <option value="SP">São Paulo</option>
+             <option value="SE">Sergipe</option>
+             <option value="TO">Tocantins</option>
+             <option value="EX">Estrangeiro</option>
+          </select>
       </div>
-      <div class="col-5">
+      <div class="col-3">
         <label>Cidade</label>
-        <select class="form-control" type="text" name="" value="" id="cities" class="form-control">
+        <input class="form-control" type="text" name="" value="" id="cities" class="form-control">
 
-        </select>
+
       </div>
       <div class="col-5">
         <label>Bairro</label>
         <input type="text" name="" value="" id="neighborhood" class="form-control">
       </div>
-      <div class="col-12 ">
+      <div class="col-8 ">
         <label>Endereço</label>
         <input type="text" name="" value="" id="address" class="form-control">
+      </div>
+      <div class="col-4">
+        <label>Complemento</label>
+        <input type="text" name="" value="" id="complement" class="form-control">
       </div>
     </div>
     <div class="row">
@@ -63,6 +98,7 @@
       <p id="result"></p>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin"anonymous"></script>
 <script src="./js/index.js" charset="utf-8"></script>
 </body>
 </html>
